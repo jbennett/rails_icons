@@ -1,52 +1,105 @@
+# frozen_string_literal: true
+
 require "fileutils"
 
+require_relative "helpers/icon_sync_engine"
 module RailsIcons
   class SyncGenerator < Rails::Generators::Base
-    ICON_VAULT_REPO_URL = "https://github.com/Rails-Designer/rails_icons_vault.git".freeze
+    SETS = {
+      heroicons: {
+        name: "heroicons",
+        url: "https://github.com/tailwindlabs/heroicons.git",
+        variants: {
+          outline: "optimized/24/outline",
+          solid: "optimized/24/solid",
+          mini: "optimized/20/solid",
+          micro: "optimized/16/solid"
+        }
+      },
+      tabler: {
+        name: "tabler",
+        url: "https://github.com/tabler/tabler-icons.git",
+        variants: {
+          filled: "icons/filled",
+          outline: "icons/outline"
+        }
+      },
+      lucide: {
+        name: "lucide",
+        url: "https://github.com/lucide-icons/lucide.git",
+        variants: {
+          outline: "icons"
+        }
+      }
+      # Template:
+      # set_name: {
+      #   name: "set_name"
+      #   url: "Publicly Acessible URL to Repository",
+      #   variants: {
+      #     variant_name: "relative/path/to/icon/variant/folder"
+      #   }
+      # }
+    }.freeze
 
     argument :libraries, type: :array, default: [], banner: "heroicons lucide tabler"
 
     class_option :destination, type: :string, default: nil,
       desc: "Custom destination folder for icons (default: `app/assets/svg/icons/`)"
 
-    desc "Sync a specified icon set(s) from the Rails Icons Vault (https://github.com/Rails-Designer/rails_icons_vault)"
+    desc "Sync a specified icon set(s) from their respective git repos."
     source_root File.expand_path("templates", __dir__)
 
     def sync_icons
-      icons_dir = options[:destination] || Rails.root.join("app/assets/svg/icons")
-      tmp_dir = Rails.root.join("tmp/icons")
+      clean_temp_directory
 
-      FileUtils.rm_rf(tmp_dir) if Dir.exist?(tmp_dir)
-      FileUtils.mkdir_p(tmp_dir)
+      libraries.each { |set_name| sync_icon_set(set_name) }
 
-      if system("git clone '#{ICON_VAULT_REPO_URL}' '#{tmp_dir}'")
-        say "Repository cloned successfully.", :green
+      clean_temp_directory
+    end
+
+    private
+
+    def icons_directory
+      options[:destination] || Rails.root.join("app/assets/svg/icons")
+    end
+
+    def temp_icons_directory
+      Rails.root.join("tmp/icons")
+    end
+
+    def clean_temp_directory
+      FileUtils.rm_rf(temp_icons_directory) if Dir.exist?(temp_icons_directory)
+    end
+
+    def sync_icon_set(set_name)
+      set = SETS[set_name.to_sym]
+
+      IconSyncEngine.new(temp_icons_directory, set).sync
+
+      icon_set_path = File.join(temp_icons_directory, set[:name])
+
+      if Dir.exist?(icon_set_path)
+        copy_icon_set(set[:name], icon_set_path)
       else
-        say "Failed to clone repository.", :red
-
-        exit 1
+        log_icon_set_not_found(set_name)
       end
+    end
 
-      libraries.each do |set|
-        set_path = File.join(tmp_dir, "icons", set)
+    def copy_icon_set(set_name, source)
+      destination = File.join(icons_directory, set_name)
 
-        if Dir.exist?(set_path)
-          destination_path = File.join(icons_dir, set)
+      # Create icon set directory if it doesn't exist.
+      FileUtils.mkdir_p(destination)
 
-          FileUtils.mkdir_p(destination_path)
-          FileUtils.cp_r(Dir.glob("#{set_path}/*"), destination_path)
+      # Move icon set from the temp_icons_directory to icons_directory
+      FileUtils.cp_r(Dir.glob("#{source}/*"), destination)
 
-          say "Synced `#{set}` icons for set", :green
-        else
-          say "Icon set `#{set}` not found", :red
+      say "Synced `#{set_name}` icons successfully.", :green
+    end
 
-          exit 1
-        end
-      end
-
-      FileUtils.rm_rf(tmp_dir)
-
-      say "Icons synced successfully", :green
+    def log_icon_set_not_found(set)
+      say "Icon set `#{set}` not found.", :red
+      exit 1
     end
   end
 end
