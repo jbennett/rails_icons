@@ -85,11 +85,23 @@ icon "check", stroke_width: 2
 ```
 
 
-## First-party Libraries
+## First-party libraries
 
 - [Heroicons](https://github.com/tailwindlabs/heroicons)
 - [Lucide](https://github.com/lucide-icons/lucide)
 - [Tabler](https://github.com/tabler/tabler-icons)
+
+
+## Animated icons
+
+Rails Icons also includes a few animated icons. Great for loading states and so on. These are currently included:
+
+- `faded-spinner`
+- `trailing-spinner`
+- `fading-dots`
+- `bouncing-dots`
+
+Use like this: `icon "faded-spinner", library: "animated"`. The same attributes as other libraries are available.
 
 
 ## Custom icon library
@@ -97,7 +109,8 @@ icon "check", stroke_width: 2
 Need to use an icon from another library?
 
 1. add the (SVG) icon to **app/assets/svgs/LIBRARY_NAME/DEFAULT_VARIANT**;
-2. run `rails generate rails_icons:initializer --library=custom`.
+2. run `rails generate rails_icons:initializer --library=custom`;
+3. update the initializer with the library name and, optionally, default variant.
 
 Every added custom icon can now be used with the same interface as first-party icon libraries.
 
