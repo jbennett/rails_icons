@@ -75,7 +75,7 @@ icon "check"
 icon "check", variant: "solid"
 
 # Set library explictly
-icon "check", library: "heroicons" hero
+icon "check", library: "heroicons"
 
 # Add CSS
 icon "check", class: "text-green-500"
@@ -116,7 +116,7 @@ Need to use an icon from another library?
 2. run `rails generate rails_icons:initializer --library=custom`;
 3. update the initializer with the library name and, optionally, default variant.
 
-Every added custom icon can now be used with the same interface as first-party icon libraries.
+Every custom icon can now be used with the same interface as first-party icon libraries.
 
 ```ruby
 icon "apple", library: "simple_icons", class: "text-black"
