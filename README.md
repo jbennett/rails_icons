@@ -112,7 +112,7 @@ Use like this: `icon "faded-spinner", library: "animated"`. The same attributes 
 
 Need to use an icon from another library?
 
-1. add the (SVG) icon to **app/assets/svgs/LIBRARY_NAME/DEFAULT_VARIANT**;
+1. add the (SVG) icon to **app/assets/svg/icons/LIBRARY_NAME/DEFAULT_VARIANT**;
 2. run `rails generate rails_icons:initializer --library=custom`;
 3. update the initializer with the library name and, optionally, default variant.
 
