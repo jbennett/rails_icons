@@ -1,5 +1,8 @@
 # Rails Icons
 
+> [!NOTE]
+> This README is for the main branch. For the latest stable version, see the [release branch README](https://github.com/Rails-Designer/rails_icons/blob/18deb5326d621d5766595222af6ad77bb3361713/README.md)
+
 Add any icon library to a Rails app. Rails Icons has first-party support for a [handful of libraries](#first-party-libraries). It is library agnostic so it can be used with any icon library using the same interface.
 
 ```erb
