@@ -40,15 +40,33 @@ class IconTest < ActiveSupport::TestCase
     end
   end
 
+  test "without variant, using default configuration, it returns a SVG" do
+    assert_nothing_raised do
+      icon_with_no_variant("academic-cap")
+    end
+  end
+
   test "using lucide library, it returns a SVG" do
     assert_nothing_raised do
       icon("graduation-cap", library: "lucide")
     end
   end
 
+  test "using lucide library, without passing variant, it returns a SVG" do
+    assert_nothing_raised do
+      icon_with_no_variant("graduation-cap", library: "lucide")
+    end
+  end
+
   test "using tabler library, it returns a SVG" do
     assert_nothing_raised do
       icon("thumbs-up", library: "tabler")
+    end
+  end
+
+  test "using tabler library, without passing variant, it returns a SVG" do
+    assert_nothing_raised do
+      icon_with_no_variant("thumbs-up", library: "tabler")
     end
   end
 
@@ -62,5 +80,9 @@ class IconTest < ActiveSupport::TestCase
 
   def icon(name, library: "heroicons", variant: "outline", **args)
     RailsIcons::Icon.new(name: name, library:, variant:, args:).svg
+  end
+
+  def icon_with_no_variant(name, library: "heroicons", **args)
+    RailsIcons::Icon.new(name: name, library:, args:).svg
   end
 end

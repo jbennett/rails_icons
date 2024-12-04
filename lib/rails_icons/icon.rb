@@ -1,7 +1,7 @@
 require "rails_icons/icon/attributes"
 
 class RailsIcons::Icon
-  def initialize(name:, library:, variant:, args:)
+  def initialize(name:, library:, args:, variant: nil)
     @name = name
     @library = library.to_s.inquiry
     @variant = variant.to_s
@@ -21,14 +21,30 @@ class RailsIcons::Icon
   private
 
   def error_message
-    "Icon not found: `#{@library} / #{variant} / #{@name}`"
+    attributes = [
+      @library,
+      variant,
+      @name
+    ].compact_blank
+
+    "Icon not found: `#{attributes.join(" / ")}`"
   end
 
   def file_path
     return RailsIcons::Engine.root.join("app", "assets", "svg", "rails_icons", "icons", "animated", "base", "#{@name}.svg") if @library.animated?
+    return custom_library.dig("path") if custom_library?
 
-    custom_library.dig("path") ||
-      Rails.root.join("app", "assets", "svg", "icons", @library, variant, "#{@name}.svg")
+    path_parts = [
+      "app",
+      "assets",
+      "svg",
+      "icons",
+      @library,
+      variant,
+      "#{@name}.svg"
+    ].compact_blank
+
+    Rails.root.join(*path_parts)
   end
 
   def custom_library?
@@ -50,10 +66,7 @@ class RailsIcons::Icon
   end
 
   def variant
-    return "base" if @library.animated?
-    return @variant if @variant.present?
-
-    RailsIcons.configuration.default_variant
+    @variant.presence || ([:heroicons, :lucide, :tabler].include?(@library.to_sym) ? RailsIcons.configuration.default_variant : nil)
   end
 
   def default_css
@@ -80,6 +93,6 @@ class RailsIcons::Icon
       .libraries
       .dig("custom")
       &.with_indifferent_access
-      &.dig(@library, variant) || {}
+      &.dig(*variant ? [@library, variant] : [@library]) || {}
   end
 end
