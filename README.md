@@ -1,8 +1,5 @@
 # Rails Icons
 
-> [!NOTE]
-> This README is for the main branch. For the latest stable version, see the [release branch README](https://github.com/Rails-Designer/rails_icons/blob/18deb5326d621d5766595222af6ad77bb3361713/README.md)
-
 Add any icon library to a Rails app. Rails Icons has first-party support for a [handful of libraries](#first-party-libraries). It is library agnostic so it can be used with any icon library using the same interface.
 
 ```erb
@@ -13,7 +10,7 @@ Add any icon library to a Rails app. Rails Icons has first-party support for a [
 <%= icon "apple", library: "simple_icons", class: "text-black" %>
 ```
 
-The icons are pulled from their respective GitHub repositories, keeping Rails icons' core lightweight.
+The icons are sourced directly from their respective GitHub repositories, ensuring Rails Icons remain lightweight.
 
 
 **Sponsored By [Rails Designer](https://railsdesigner.com/)**
@@ -25,7 +22,7 @@ The icons are pulled from their respective GitHub repositories, keeping Rails ic
 
 ## Install
 
-Add the rails_icons gem:
+Add the gem
 ```bash
 bundle add rails_icons
 ```
@@ -35,13 +32,11 @@ Install, choosing one of the supported libraries
 rails generate rails_icons:install --libraries=LIBRARY_NAME
 ```
 
-**Example**:
+**Example**
 ```bash
 rails generate rails_icons:install --libraries=heroicons
-```
 
-Or multiple at once:
-```bash
+Or multiple at once
 rails generate rails_icons:install --libraries=heroicons lucide
 ```
 
@@ -105,19 +100,17 @@ icon "apple", library: "simple_icons", class: "text-black"
 
 ## Sync icons
 
-If a library gets updated, sync the icons to your app by running:
+If a library gets updated, sync the icons to your app by running
 
 ```bash
 rails generate rails_icons:sync --libraries=LIBRARY_NAME
 ```
 
-**Example**:
+**Example**
 ```bash
 rails generate rails_icons:sync --libraries=heroicons
-```
 
-Or multiple at once:
-```bash
+# Or multiple at once:
 rails generate rails_icons:sync --libraries=heroicons lucide
 ```
 
