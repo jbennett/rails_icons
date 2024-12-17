@@ -2,13 +2,33 @@
 
 module RailsIcons
   class Configuration
-    class Feather
+    module Feather
+      extend self
+
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = nil
 
           options.default = default_options
         end
+      end
+
+      def initializer_config
+        <<~RB.indent(2)
+          # Override Feather defaults
+          # config.libraries.feather.default.css = "size-6"
+          # config.libraries.feather.default.stroke_width = "2"
+          # config.libraries.feather.default.data = {}
+        RB
+      end
+
+      def source
+        {
+          url: "https://github.com/feathericons/feather.git",
+          variants: {
+            ".": "icons" # Feather has no variants, store in the top directory
+          }
+        }
       end
 
       private
