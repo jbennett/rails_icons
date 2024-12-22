@@ -9,7 +9,9 @@ module RailsIcons
 
       def attach(to:)
         @merged_attributes.each do |key, value|
-          if value.is_a?(Hash)
+          if key == :class
+            class_attribute(key, value, to)
+          elsif value.is_a?(Hash)
             hash_attributes(key, value, to)
           else
             string_attributes(key, value, to)
@@ -18,6 +20,10 @@ module RailsIcons
       end
 
       private
+
+      def class_attribute(_, value, to)
+        to[:class] = ActionController::Base.helpers.token_list(value)
+      end
 
       def hash_attributes(key, value, to)
         value.each do |nested_key, nested_value|
