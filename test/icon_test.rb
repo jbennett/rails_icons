@@ -24,6 +24,10 @@ class IconTest < ActiveSupport::TestCase
     assert_match(/stroke-width="3"/, icon("academic-cap", stroke_width: 3), "SVG should contain 'stroke-width=\"3\"'")
   end
 
+  test "it parses class attributes" do
+    assert_match(/class="present"/, icon("academic-cap", class: ["present": true, "not-presnt": false]), "SVG should contain 'class=\"present\"'")
+  end
+
   test "setting variant, it returns a SVG" do
     assert_nothing_raised do
       icon("academic-cap", variant: "mini")
