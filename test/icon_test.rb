@@ -46,6 +46,12 @@ class IconTest < ActiveSupport::TestCase
     end
   end
 
+  test "sidekickicons" do
+    assert_nothing_raised do
+      icon("arc-third", library: "sidekickicons")
+    end
+  end
+
   test "feather" do
     assert_nothing_raised do
       icon("activity", library: "feather")
