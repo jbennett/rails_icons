@@ -8,6 +8,7 @@ module RailsIcons
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = nil
+          options.exclude_variants = []
 
           options.default = default_options
         end
@@ -16,6 +17,8 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Feather defaults
+          # config.libraries.feather.exclude_variants = [] # Feather has no variants, this is provided for backwards compatibility
+
           # config.libraries.feather.default.css = "size-6"
           # config.libraries.feather.default.stroke_width = "2"
           # config.libraries.feather.default.data = {}

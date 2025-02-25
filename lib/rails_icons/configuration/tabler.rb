@@ -8,6 +8,7 @@ module RailsIcons
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = :outline
+          options.exclude_variants = []
 
           setup_outline_config(options)
           setup_filled_config(options)
@@ -17,6 +18,9 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Tabler defaults
+          # config.libraries.tabler.exclude_variants = [] # Exclude specific variants
+
+          # config.libraries.tabler.regular.default.css = "size-6"
           # config.libraries.tabler.solid.default.css = "size-6"
           # config.libraries.tabler.solid.default.data = {}
 

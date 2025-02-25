@@ -8,6 +8,7 @@ module RailsIcons
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = :regular
+          options.exclude_variants = []
 
           setup_bold_config(options)
           setup_duotone_config(options)
@@ -21,6 +22,8 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Phosphor defaults
+          # config.libraries.phosphor.exclude_variants = [:duotone, :thin] # Exclude specific variants
+
           # config.libraries.phosphor.bold.default.css = "size-6"
           # config.libraries.phosphor.bold.default.data = {}
 

@@ -8,6 +8,7 @@ module RailsIcons
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = :regular
+          options.exclude_variants = []
 
           setup_regular_config(options)
           setup_solid_config(options)
@@ -18,6 +19,8 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Boxicons defaults
+          # config.libraries.boxicons.exclude_variants = [] # Exclude specific variants
+
           # config.libraries.boxicons.solid.css = "size-6"
           # config.libraries.boxicons.solid.data = {}
 

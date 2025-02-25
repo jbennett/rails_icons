@@ -8,6 +8,7 @@ module RailsIcons
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = :outline
+          options.exclude_variants = []
 
           setup_outline_config(options)
         end
@@ -16,6 +17,8 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Lucide defaults
+          # config.libraries.lucide.exclude_variants = [] # Exclude specific variants
+
           # config.libraries.lucide.outline.default.css = "size-6"
           # config.libraries.lucide.outline.default.stroke_width = "1.5"
           # config.libraries.lucide.outline.default.data = {}

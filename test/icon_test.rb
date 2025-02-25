@@ -25,7 +25,7 @@ class IconTest < ActiveSupport::TestCase
   end
 
   test "it parses class attributes" do
-    assert_match(/class="present"/, icon("academic-cap", class: ["present": true, "not-presnt": false]), "SVG should contain 'class=\"present\"'")
+    assert_match(/class="present"/, icon("academic-cap", class: ["present": true, "not-present": false]), "SVG should contain 'class=\"present\"'")
   end
 
   test "setting variant, it returns a SVG" do

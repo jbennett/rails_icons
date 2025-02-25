@@ -6,7 +6,7 @@ module RailsIcons
   class SyncGenerator < Rails::Generators::Base
     source_root File.expand_path("templates", __dir__)
 
-    desc "Sync the choosen icon libraries from their respective git repos."
+    desc "Sync the chosen icon libraries from their respective git repos."
 
     class_option :libraries, type: :array, default: [], desc: "Choose libraries (#{RailsIcons.libraries.keys.join("/")})"
 

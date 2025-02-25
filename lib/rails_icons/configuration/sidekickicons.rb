@@ -8,6 +8,7 @@ module RailsIcons
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = :outline
+          options.exclude_variants = []
 
           setup_outline_config(options)
           setup_solid_config(options)
@@ -19,6 +20,8 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Sidekickicons defaults
+          # config.libraries.sidekickicons.exclude_variants = [:mini, :micro] # Exclude specific variants
+
           # config.libraries.sidekickicons.outline.default.css = "size-6"
           # config.libraries.sidekickicons.outline.default.stroke_width = "1.5"
           # config.libraries.sidekickicons.outline.default.data = {}
