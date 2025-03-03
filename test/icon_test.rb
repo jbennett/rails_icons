@@ -92,6 +92,12 @@ class IconTest < ActiveSupport::TestCase
     end
   end
 
+  test "eather" do
+    assert_nothing_raised do
+      icon("alien", library: "weather")
+    end
+  end
+
   test "flags" do
     assert_nothing_raised do
       icon("nl", library: "flags")

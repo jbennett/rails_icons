@@ -8,6 +8,7 @@ require_relative "configuration/lucide"
 require_relative "configuration/phosphor"
 require_relative "configuration/radix"
 require_relative "configuration/tabler"
+require_relative "configuration/weather"
 
 module RailsIcons
   extend self
@@ -22,7 +23,8 @@ module RailsIcons
       lucide: RailsIcons::Configuration::Lucide,
       phosphor: RailsIcons::Configuration::Phosphor,
       radix: RailsIcons::Configuration::Radix,
-      tabler: RailsIcons::Configuration::Tabler
+      tabler: RailsIcons::Configuration::Tabler,
+      weather: RailsIcons::Configuration::Weather
     }
   end
 end
