@@ -25,7 +25,7 @@ module RailsIcons
       phosphor: RailsIcons::Configuration::Phosphor,
       radix: RailsIcons::Configuration::Radix,
       sidekickicons: RailsIcons::Configuration::Sidekickicons,
-      tabler: RailsIcons::Configuration::Tabler
+      tabler: RailsIcons::Configuration::Tabler,
       weather: RailsIcons::Configuration::Weather
     }
   end
