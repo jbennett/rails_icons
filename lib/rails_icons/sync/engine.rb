@@ -32,7 +32,7 @@ module RailsIcons
 
       private
 
-      TEMP_DIRECTORY = Rails.root.join("tmp/icons").freeze
+      TEMP_DIRECTORY = Rails.root.join("tmp/rails_icons").freeze
 
       def clone_repository
         raise "[Rails Icons] Failed to clone repository" unless system("git clone '#{@library[:url]}' '#{@temp_directory}'")
