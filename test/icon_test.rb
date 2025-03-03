@@ -92,7 +92,13 @@ class IconTest < ActiveSupport::TestCase
     end
   end
 
-  test "eather" do
+  test "linear" do
+    assert_nothing_raised do
+      icon("alarm", library: "linear")
+    end
+  end
+
+  test "weather" do
     assert_nothing_raised do
       icon("alien", library: "weather")
     end
@@ -103,7 +109,6 @@ class IconTest < ActiveSupport::TestCase
       icon("nl", library: "flags")
     end
   end
-
 
   test "it raises RailsIcons::NotFound error" do
     assert_raises(RailsIcons::NotFound) do
