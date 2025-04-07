@@ -24,8 +24,8 @@ class RailsIcons::Icon
   private
 
   def set_variant
-    @config.default_variant.presence ||
-      @config.libraries.dig(@library.to_sym, :default_variant)
+    @config.libraries.dig(@library.to_sym, :default_variant).presence ||
+      @config.default_variant.presence
   end
 
   def error_message
